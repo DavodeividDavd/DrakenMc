@@ -11,101 +11,95 @@ body {
   color: white;
   text-align: center;
   overflow-x: hidden;
-  background: linear-gradient(180deg, #000814, #001d3d, #003566);
+
+  /* 🌊 Fondo pro oceánico */
+  background: radial-gradient(circle at top, #001d3d, #000814);
 }
 
-/* 🌊 Canvas fondo */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* 🌊 Olas */
-.wave {
-  position: fixed;
-  bottom: 0;
-  width: 200%;
-  height: 120px;
-  background: rgba(0,150,255,0.3);
-  border-radius: 50%;
-  animation: wave 8s infinite linear;
-}
-
-.wave2 {
-  animation: wave 12s infinite linear reverse;
-  opacity: 0.5;
-}
-
-@keyframes wave {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
+/* LOGO */
 .logo {
   font-size: 65px;
   font-weight: bold;
   margin-top: 40px;
-  background: linear-gradient(90deg, #00cfff, #66ffff);
+  background: linear-gradient(90deg, #00cfff, #66ffff, #ffffff);
   -webkit-background-clip: text;
   color: transparent;
-  text-shadow: 0 0 30px rgba(0,255,255,0.9);
+  text-shadow: 0 0 30px rgba(0,255,255,0.8);
 }
 
 .subtitle {
   color: #aeefff;
 }
 
+/* SECCIONES */
 .section {
   padding: 60px 20px;
 }
 
+/* CARDS BASE */
 .card {
-  background: rgba(0,0,30,0.8);
+  position: relative;
+  background: rgba(0,0,30,0.7);
   margin: 20px;
   padding: 25px;
   border-radius: 20px;
   display: inline-block;
   width: 270px;
   transition: 0.4s;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* EFECTO BRILLO */
+.card::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* HOVER GENERAL */
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
 }
 
 /* 🔴 KitPvP */
 .kitpvp {
   border: 2px solid #8b0000;
-  box-shadow: 0 0 25px rgba(139,0,0,0.8);
-}
-.kitpvp:hover {
-  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(139,0,0,0.7);
 }
 
 /* 🟢 Survival */
 .survival {
   border: 2px solid #00ff7f;
-  box-shadow: 0 0 25px rgba(0,255,127,0.8);
-}
-.survival:hover {
-  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0,255,127,0.7);
 }
 
-/* 🔵 Skyblock */
+/* 🔵 Skyblock (NO TOCADO) */
 .skyblock {
   border: 2px solid #00bfff;
-  box-shadow: 0 0 25px rgba(0,191,255,0.8);
-}
-.skyblock:hover {
-  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0,191,255,0.7);
 }
 
+/* IP */
 .ip {
   background: linear-gradient(90deg, #00cfff, white);
   color: black;
   padding: 15px;
   border-radius: 10px;
   font-weight: bold;
+  font-size: 18px;
 }
 
+/* BOTONES */
 button, .btn {
   margin-top: 15px;
   padding: 12px 25px;
@@ -114,112 +108,106 @@ button, .btn {
   background: linear-gradient(90deg, #00cfff, #0066ff);
   color: white;
   cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 button:hover, .btn:hover {
   transform: scale(1.1);
 }
 
+/* JUGADORES */
 #players {
   margin-top: 15px;
   color: #00cfff;
+  font-size: 20px;
+}
+
+/* ANIMACIÓN ENTRADA */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* OLA SUAVE ABAJO */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: rgba(0,150,255,0.15);
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
+<div class="logo fade-in">🐉 DrakenMc Network</div>
+<div class="subtitle fade-in">Servidor épico de Minecraft 🌊🔥</div>
 
-<!-- 🌊 OLAS -->
-<div class="wave"></div>
-<div class="wave wave2"></div>
-
-<div class="logo">🐉 DrakenMc Network</div>
-<div class="subtitle">Servidor épico estilo océano 🌊🔥</div>
-
-<div class="section">
+<div class="section fade-in">
 <h2>🔥 Modalidades</h2>
 
 <div class="card kitpvp">
 <h3>🩸 KitPvP</h3>
-<p>Peleas intensas</p>
+<p>Peleas intensas y recompensas</p>
 </div>
 
 <div class="card survival">
 <h3>⚔️ Survival</h3>
-<p>Aventura y economía</p>
+<p>Economía, clanes y aventuras</p>
 </div>
 
 <div class="card skyblock">
 <h3>🏝️ Skyblock</h3>
-<p>Islas en el cielo</p>
+<p>Islas en el cielo y progreso</p>
 </div>
 
 </div>
 
-<div class="section">
-<h2>🎮 Entrar</h2>
+<div class="section fade-in">
+<h2>🎮 Entrar al servidor</h2>
 
 <div class="ip" id="ip">infernalmc.mcsh.io</div><br>
 <button onclick="copyIP()">Copiar IP</button>
 
-<div id="players">Cargando...</div>
+<div id="players">Cargando jugadores...</div>
 </div>
 
-<div class="section">
+<div class="section fade-in">
+<h2>💬 Comunidad</h2>
+
 <a class="btn" href="https://discord.gg/JpEtzS4J" target="_blank">
-🎮 Discord
+🎮 Unirse al Discord
 </a>
+
 </div>
 
 <script>
 // copiar IP
-function copyIP(){
-  const ip=document.getElementById("ip").innerText;
+function copyIP() {
+  const ip = document.getElementById("ip").innerText;
   navigator.clipboard.writeText(ip);
-  alert("IP copiada");
+  alert("IP copiada: " + ip);
 }
 
-// jugadores
+// jugadores online
 fetch("https://api.mcsrvstat.us/2/infernalmc.mcsh.io")
-.then(res=>res.json())
-.then(data=>{
+.then(res => res.json())
+.then(data => {
   document.getElementById("players").innerText =
-    data.online ? "👥 "+data.players.online+" online" : "🔴 offline";
+    data.online ? "👥 " + data.players.online + " online" : "🔴 offline";
 });
-
-// 🌊 burbujas PRO
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let bubbles=[];
-for(let i=0;i<100;i++){
-  bubbles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*4
-  });
-}
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="rgba(0,200,255,0.6)";
-  
-  bubbles.forEach(b=>{
-    ctx.beginPath();
-    ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-    ctx.fill();
-    b.y-=0.7;
-    if(b.y<0) b.y=canvas.height;
-  });
-
-  requestAnimationFrame(draw);
-}
-draw();
 </script>
 
 </body>

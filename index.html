@@ -13,7 +13,6 @@ body {
   text-align: center;
 }
 
-/* HEADER */
 .header {
   padding: 70px 20px;
   background: linear-gradient(90deg, #001f3f, #003366);
@@ -30,12 +29,10 @@ body {
   margin-top: 10px;
 }
 
-/* SECCIONES */
 .section {
   padding: 50px 20px;
 }
 
-/* CARDS */
 .card {
   background: #111827;
   margin: 15px;
@@ -46,7 +43,6 @@ body {
   transition: 0.3s;
 }
 
-/* COLORES MODALIDADES */
 .kitpvp { border-bottom: 4px solid #ff0000; }
 .survival { border-bottom: 4px solid #00ff7f; }
 .skyblock { border-bottom: 4px solid #00bfff; }
@@ -55,16 +51,15 @@ body {
   transform: translateY(-6px);
 }
 
-/* IP */
 .ip {
   background: #1f2937;
   padding: 12px;
   border-radius: 8px;
   display: inline-block;
   margin-top: 10px;
+  font-weight: bold;
 }
 
-/* BOTONES */
 button, .btn {
   margin-top: 15px;
   padding: 10px 20px;
@@ -134,7 +129,7 @@ button:hover, .btn:hover {
 function copyIP() {
   const ip = document.getElementById("ip").innerText;
   navigator.clipboard.writeText(ip);
-  alert("IP copiada");
+  alert("IP copiada: " + ip);
 }
 
 fetch("https://api.mcsrvstat.us/2/infernalmc.mcsh.io")

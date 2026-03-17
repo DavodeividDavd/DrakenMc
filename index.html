@@ -1,129 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>DrakenMc Network</title>
+<meta charset="UTF-8">
+<title>DrakenMc Network</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #0a0a0a, #111);
-      color: white;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  background: black;
+}
 
-    header {
-      padding: 60px;
-      font-size: 50px;
-      font-weight: bold;
-      background: linear-gradient(90deg, red, cyan);
-      animation: glow 3s infinite alternate;
-    }
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 
-    @keyframes glow {
-      from { filter: brightness(1); }
-      to { filter: brightness(1.5); }
-    }
+.logo {
+  font-size: 60px;
+  font-weight: bold;
+  margin-top: 40px;
+  background: linear-gradient(90deg, red, cyan);
+  -webkit-background-clip: text;
+  color: transparent;
+}
 
-    .section {
-      padding: 50px;
-    }
+.section {
+  padding: 50px;
+}
 
-    .card {
-      background: #1a1a1a;
-      margin: 20px;
-      padding: 25px;
-      border-radius: 15px;
-      display: inline-block;
-      width: 260px;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(0,255,255,0.2);
-    }
+.card {
+  background: rgba(0,0,0,0.7);
+  margin: 20px;
+  padding: 25px;
+  border-radius: 15px;
+  display: inline-block;
+  width: 260px;
+  transition: 0.3s;
+}
 
-    .card:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 20px cyan;
-    }
+.card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px cyan;
+}
 
-    .ip-box {
-      margin-top: 20px;
-    }
+.ip {
+  background: cyan;
+  color: black;
+  padding: 12px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
 
-    .ip {
-      background: cyan;
-      color: black;
-      padding: 12px;
-      border-radius: 8px;
-      display: inline-block;
-      font-weight: bold;
-    }
+button, .discord {
+  margin-top: 10px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background: red;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s;
+}
 
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: red;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+button:hover, .discord:hover {
+  background: cyan;
+  color: black;
+}
 
-    button:hover {
-      background: cyan;
-      color: black;
-    }
-
-    footer {
-      padding: 20px;
-      background: #111;
-      color: #aaa;
-    }
-  </style>
+#players {
+  font-size: 25px;
+  margin-top: 10px;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  🐉 DrakenMc Network
-</header>
+<canvas id="bg"></canvas>
+
+<div class="logo">🐉 DrakenMc Network</div>
 
 <div class="section">
-  <h2>🔥 Modalidades</h2>
+<h2>🔥 Modalidades</h2>
 
-  <div class="card">
-    <h3>⚔️ Survival</h3>
-    <p>Economía, misiones y aventuras</p>
-  </div>
+<div class="card">
+<h3>⚔️ Survival</h3>
+<p>Economía y aventuras</p>
+</div>
 
-  <div class="card">
-    <h3>🩸 KitPvP</h3>
-    <p>Peleas rápidas y épicas</p>
-  </div>
+<div class="card">
+<h3>🩸 KitPvP</h3>
+<p>Peleas rápidas</p>
+</div>
 
-  <div class="card">
-    <h3>🏝️ Skyblock</h3>
-    <p>Sobrevive en tu isla</p>
-  </div>
+<div class="card">
+<h3>🏝️ Skyblock</h3>
+<p>Islas en el cielo</p>
+</div>
 
 </div>
 
 <div class="section">
-  <h2>🎮 Cómo entrar</h2>
+<h2>🎮 Entrar al servidor</h2>
 
-  <div class="ip-box">
-    <div class="ip" id="ip">infernalmc.mcsh.io</div><br>
-    <button onclick="copyIP()">Copiar IP</button>
-  </div>
+<div class="ip" id="ip">infernalmc.mcsh.io</div><br>
+<button onclick="copyIP()">Copiar IP</button>
 
-  <p>Versión: 1.20+</p>
+<div id="players">Cargando jugadores...</div>
 </div>
 
-<footer>
-  © 2026 DrakenMc Network
-</footer>
+<div class="section">
+<h2>💬 Comunidad</h2>
+
+<a class="discord" href="https://discord.gg/JpEtzS4J" target="_blank">
+🎮 Unirse al Discord Oficial
+</a>
+
+</div>
 
 <script>
 function copyIP() {
@@ -131,6 +134,50 @@ function copyIP() {
   navigator.clipboard.writeText(ip);
   alert("IP copiada: " + ip);
 }
+
+fetch("https://api.mcsrvstat.us/2/infernalmc.mcsh.io")
+.then(res => res.json())
+.then(data => {
+  if(data.online){
+    document.getElementById("players").innerText =
+      "👥 Jugadores online: " + data.players.online;
+  } else {
+    document.getElementById("players").innerText =
+      "🔴 Servidor offline";
+  }
+});
+
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for(let i=0;i<100;i++){
+  stars.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*2
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y+=0.5;
+    if(s.y>canvas.height) s.y=0;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>

@@ -10,11 +10,11 @@ body {
   font-family: 'Segoe UI', sans-serif;
   color: white;
   text-align: center;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
+  background: linear-gradient(180deg, #001f3f, #003366, #000814);
   overflow-x: hidden;
 }
 
-/* 🌌 Fondo estrellas */
+/* 🌊 Fondo animado tipo mar */
 canvas {
   position: fixed;
   top: 0;
@@ -22,48 +22,67 @@ canvas {
   z-index: -1;
 }
 
-/* 🐉 Título */
 .logo {
   font-size: 65px;
   font-weight: bold;
   margin-top: 40px;
-  background: linear-gradient(90deg, #ff0000, #00ffff);
+  background: linear-gradient(90deg, #00cfff, #0066ff);
   -webkit-background-clip: text;
   color: transparent;
-  text-shadow: 0 0 20px rgba(0,255,255,0.6);
+  text-shadow: 0 0 25px rgba(0,200,255,0.8);
 }
 
-/* Subtítulo */
 .subtitle {
-  color: #aaa;
+  color: #9adfff;
   margin-bottom: 20px;
 }
 
-/* Secciones */
 .section {
   padding: 60px 20px;
 }
 
-/* Tarjetas */
 .card {
-  background: rgba(20,20,20,0.9);
+  background: rgba(0,0,20,0.8);
   margin: 20px;
   padding: 25px;
   border-radius: 20px;
   display: inline-block;
   width: 270px;
   transition: 0.4s;
-  box-shadow: 0 0 15px rgba(0,255,255,0.1);
 }
 
-.card:hover {
+/* 🔴 KitPvP */
+.kitpvp {
+  border: 2px solid #8b0000;
+  box-shadow: 0 0 20px rgba(139,0,0,0.7);
+}
+.kitpvp:hover {
   transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 0 30px cyan;
+  box-shadow: 0 0 35px red;
 }
 
-/* IP */
+/* 🟢 Survival */
+.survival {
+  border: 2px solid #00ff7f;
+  box-shadow: 0 0 20px rgba(0,255,127,0.7);
+}
+.survival:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 35px lime;
+}
+
+/* 🔵 Skyblock */
+.skyblock {
+  border: 2px solid #00bfff;
+  box-shadow: 0 0 20px rgba(0,191,255,0.7);
+}
+.skyblock:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 35px cyan;
+}
+
 .ip {
-  background: linear-gradient(90deg, cyan, white);
+  background: linear-gradient(90deg, #00cfff, white);
   color: black;
   padding: 15px;
   border-radius: 10px;
@@ -72,13 +91,12 @@ canvas {
   font-size: 18px;
 }
 
-/* Botones */
 button, .btn {
   margin-top: 15px;
   padding: 12px 25px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(90deg, red, orange);
+  background: linear-gradient(90deg, #0066ff, #00cfff);
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -91,11 +109,10 @@ button:hover, .btn:hover {
   background: linear-gradient(90deg, cyan, blue);
 }
 
-/* Contador */
 #players {
   margin-top: 15px;
   font-size: 22px;
-  color: cyan;
+  color: #00cfff;
 }
 </style>
 </head>
@@ -105,24 +122,24 @@ button:hover, .btn:hover {
 <canvas id="bg"></canvas>
 
 <div class="logo">🐉 DrakenMc Network</div>
-<div class="subtitle">El mejor servidor de Minecraft en LATAM 🔥</div>
+<div class="subtitle">El mejor servidor de Minecraft en LATAM 🌊🔥</div>
 
 <div class="section">
 <h2>🔥 Modalidades</h2>
 
-<div class="card">
-<h3>⚔️ Survival</h3>
-<p>Economía, clanes y eventos épicos</p>
-</div>
-
-<div class="card">
+<div class="card kitpvp">
 <h3>🩸 KitPvP</h3>
 <p>Peleas intensas y recompensas</p>
 </div>
 
-<div class="card">
+<div class="card survival">
+<h3>⚔️ Survival</h3>
+<p>Economía, clanes y aventuras</p>
+</div>
+
+<div class="card skyblock">
 <h3>🏝️ Skyblock</h3>
-<p>Islas, progreso y desafíos</p>
+<p>Islas en el cielo y progreso</p>
 </div>
 
 </div>
@@ -166,32 +183,33 @@ fetch("https://api.mcsrvstat.us/2/infernalmc.mcsh.io")
   }
 });
 
-// fondo estrellas
+// 🌊 burbujas tipo mar
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let stars = [];
-for(let i=0;i<120;i++){
-  stars.push({
+let bubbles = [];
+
+for(let i=0;i<80;i++){
+  bubbles.push({
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
-    r: Math.random()*2
+    r: Math.random()*3
   });
 }
 
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="white";
+  ctx.fillStyle="rgba(0,200,255,0.7)";
 
-  stars.forEach(s=>{
+  bubbles.forEach(b=>{
     ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
     ctx.fill();
-    s.y+=0.4;
-    if(s.y>canvas.height) s.y=0;
+    b.y-=0.5;
+    if(b.y<0) b.y=canvas.height;
   });
 
   requestAnimationFrame(draw);
